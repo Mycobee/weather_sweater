@@ -1,18 +1,17 @@
 require 'rails_helper'
 
 describe ForecastGenerator, type: :model do
-	describe "" do
 		before :each do
 			attrs = { "location"=>"denver,co" }
 			@generator = ForecastGenerator.new(attrs)
 		end
 		
 		it "exists" do
-			expect(subject).to be_a ForecastGenerator
+			expect(@generator).to be_a ForecastGenerator
 		end
 
 		it "generates a forecast hash" do
-			expect(@generator.get_forecast).to eq("denver,co")
+			expected = @generator.get_forecast
+			expect(expected).to be_a(Forecast)
 		end
-	end
 end
