@@ -1,4 +1,10 @@
 class ForecastSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :id, :current_weather, :today_details, :daily_forecasts, :hourly_forecasts
+	attributes :complete_forecast do |forecast|
+
+		{data: [forecast.current_weather, 
+						forecast.today_details,
+						forecast.daily_forecasts,
+						forecast.hourly_forecasts]}
+	end
 end
