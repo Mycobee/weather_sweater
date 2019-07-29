@@ -5,13 +5,6 @@ class Forecast
 		@forecast_data = forecast_data
 	end
 
-	def build_forecast
-		{ current_weather: current_weather, 
-		today_details: today_details,
-		daily_forecasts: daily_forecasts,
-		hourly_forecasts: hourly_forecasts }
-	end
-
 	def current_weather
 		{ high: daily_high(today),
 		 low: daily_low(today),
