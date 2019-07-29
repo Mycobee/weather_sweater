@@ -29,7 +29,6 @@ describe Forecast, type: :model do
 		end
 
 		it "hourly_forecasts" do
-		 binding.pry	
 		end
 
 #		xit "#daily_low" do
