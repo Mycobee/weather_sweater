@@ -1,6 +1,7 @@
 class Api::V1::MunchiesController < ApplicationController
 	def index
 	 trip_time = GoogleDirectionsService.new(params).get_trip[:routes][0][:legs][0][:duration][:value]
+	 response = YelpService.new(params).search_businesses
 		conn = Faraday.new('https://api.yelp.com') do |faraday|
 			faraday.adapter Faraday.default_adapter
 			faraday.headers['Authorization'] = 'Bearer ' + ENV['YELP_API_TOKEN']
@@ -20,7 +21,7 @@ class Api::V1::MunchiesController < ApplicationController
 			businesses <<	Business.new(business_data[:businesses][index], params['end'])
 		end	
 
-	 binding.pry	
+		render json: businesses, each_serializer: BusinessSerializer 
 	end
 end
 
