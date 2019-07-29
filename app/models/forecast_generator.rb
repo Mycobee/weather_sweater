@@ -5,8 +5,8 @@ class ForecastGenerator
 
 	def get_forecast
 		coords = GoogleGeocodingService.new(@params).get_coords
-		DarkSkyService.new(coords).get_forecast
-		Forcast.new(forecast_data)
+		forecast_data = DarkSkyService.new(coords).get_forecast
+		Forecast.new(forecast_data).build_forecast
 	end
 end
 
