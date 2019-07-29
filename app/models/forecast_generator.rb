@@ -1,13 +1,12 @@
 class ForecastGenerator
-	attr_reader :location
-
 	def initialize(params)
-		@location = params['location']
+		@params = params
 	end
 
 	def get_forecast
-		coords = GoogleGeocodingService.new(location).get_coords
-		DarkSkyService.new.get_forecast(coords)
+		coords = GoogleGeocodingService.new(@params).get_coords
+		DarkSkyService.new(coords).get_forecast
+		Forcast.new(forecast_data)
 	end
 end
 
