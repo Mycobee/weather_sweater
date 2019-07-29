@@ -14,11 +14,13 @@ class Api::V1::MunchiesController < ApplicationController
 		end	
 	
 		business_data = JSON.parse(response.body, symbolize_names: true)
-		### dream a poro to do the logic sifting BusinessPlucker.new(business_data)
-		 binding.pry 
-		0.upto(2).each do |index|
+		businesses = []
 
+		0.upto(2).each do |index|
+			businesses <<	Business.new(business_data[:businesses][index], params['end'])
 		end	
+
+	 binding.pry	
 	end
 end
 
