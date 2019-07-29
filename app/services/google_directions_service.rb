@@ -10,7 +10,7 @@ class GoogleDirectionsService
   def get_trip
     params = { key: ENV['GEOCODING_API_KEY'], origin: @start, destination: @end }
     url = '/maps/api/directions/json'
-    get_json(url, params)[:results]
+    get_json(url, params)
   end
 
  private 
