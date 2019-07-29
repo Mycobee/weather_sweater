@@ -1,4 +1,4 @@
 class BusinessSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :address, :end_city
+  attributes :name, :address
 end
