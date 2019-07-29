@@ -2,7 +2,7 @@
 
 # service for getting spotify user songs
 class YelpService
-  def initialize(params)
+  def initialize(params, trip_time)
     @location = params[:end] 
 		@trip_time = trip_time.seconds
 		@categories = params['food']
@@ -16,8 +16,8 @@ class YelpService
 
  private 
 
-  def get_json(url)
-    response = conn.get(url)
+  def get_json(url, params = {})
+    response = conn.get(url, params)
     JSON.parse(response.body, symbolize_names: true)
   end
 
