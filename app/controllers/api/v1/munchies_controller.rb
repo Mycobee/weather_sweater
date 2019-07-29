@@ -5,7 +5,6 @@ class Api::V1::MunchiesController < ApplicationController
 		businesses = 0.upto(2).map do |index|
 			Business.new(response[:businesses][index], params['end'])
 		end	
-
 		render json: businesses, each_serializer: BusinessSerializer 
 	end
 end
