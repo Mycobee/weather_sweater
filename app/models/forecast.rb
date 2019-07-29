@@ -13,10 +13,10 @@ class Forecast
 	end
 
 	def current_weather
-		{ high: daily_high(today),
+		{current: { high: daily_high(today),
 		 low: daily_low(today),
 		 temp: current_temp,
-		 summary: current_summary }
+		 summary: current_summary }}
 	end
 	
 	def today
@@ -36,17 +36,17 @@ class Forecast
 	end
 
 	def daily_forecasts
-		1.upto(5).map do |num|
-			daily_forecast(@forecast_data[:daily][:data][num])
-		end
+		{	five_day:	1.upto(5).map do |num|
+			daily_forecast(@forecast_data[:daily][:data][num]) 
+		end }
 	end
 
 	def daily_forecast(day)
-		{ high: daily_high(day),
-		low: daily_low(day),
-		time: daily_time(day),
-		precip_chance: daily_precip_chance(day),
-		summary: daily_summary(day) }
+		{hourly:	{ high: daily_high(day),
+			low: daily_low(day),
+			time: daily_time(day),
+			precip_chance: daily_precip_chance(day),
+			summary: daily_summary(day) }}
 	end
 
 	def daily_high(day)
@@ -70,11 +70,11 @@ class Forecast
 	end
 
 	def today_details
-		{ summary: daily_summary(today),
-		feels_like: feels_like,
-		humidity: current_humidity,
-		visibility: current_visibility,
-		uv_index: current_uv }
+		{daily_details: { summary: daily_summary(today),
+			feels_like: feels_like,
+			humidity: current_humidity,
+			visibility: current_visibility,
+			uv_index: current_uv }}
 	end
 
 	def feels_like
@@ -96,9 +96,9 @@ class Forecast
 	def hourly_forecasts
 		hourlies = Hash.new(0)
 		1.upto(8).each do |num|
-			hourlies[@forecast_data[:hourly][:data][num][:time]] =
+			hourlies[Time.at(@forecast_data[:hourly][:data][num][:time])] =
 			@forecast_data[:hourly][:data][num][:temperature]
 		end
-		hourlies
+		{hourly_forecasts: hourlies}
 	end
 end
