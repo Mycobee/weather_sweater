@@ -5,7 +5,8 @@ describe "create account api" do
 		post '/api/v1/users?email=whatever@example.com&password=password&password_confirmation=password'			
 	
 		expect(response).to be_successful
-		
+		key = JSON.parse(response.body)	
+		user = User.last	
+		expect(user.email).to eq("whatever@example.com")	
 	end
 end
-
