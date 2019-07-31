@@ -35,6 +35,7 @@ gem 'faraday'
 gem 'fast_jsonapi'
 gem 'figaro'
 gem 'rails-i18n'
+gem 'simplecov', require: false
 gem 'vcr'
 gem 'webmock'
 
