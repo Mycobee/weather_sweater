@@ -15,6 +15,7 @@ class CreateUserFacade
 
 	def assign
 		@new_user.api_key = ApiKey.new.key
+		@new_user.save
 		{ api_key: @new_user.api_key }
 	end	
 end
