@@ -14,4 +14,14 @@ describe "create account api"do
 		user = User.last	
 		expect(user.email).to eq("whatever@example.com")	
 	end
+
+	it "renders 404 if the request isn't successful" do
+		user = {
+			"email": "whatever@example.com", 
+			"password": "password",
+			"password_confirmation": "psswrd"
+		}
+
+		expect{post '/api/v1/users', params: user}.to raise_error(ActionController::RoutingError)
+	end
 end

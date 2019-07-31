@@ -17,6 +17,8 @@ class PhotoFacade
 	end
 
 	def get_photos
-		FlickrService.new(@params).get_photos
+		Rails.cache.fetch("photos_cache", expires_in: 15.hours) do
+			FlickrService.new(@params).get_photos
+		end
 	end
 end
