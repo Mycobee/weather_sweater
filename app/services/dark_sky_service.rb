@@ -11,6 +11,12 @@ class DarkSkyService
     get_json(url)
   end
 
+	def get_future_forecast(seconds)
+		time = (Time.now.to_i +	seconds.seconds).to_s
+		url = "/forecast/#{ENV['DARKSKY_API_KEY']}/#{@coords + ',' + time}"
+    get_json(url)
+	end
+
  private 
 
   def get_json(url)

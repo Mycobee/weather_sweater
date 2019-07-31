@@ -34,6 +34,7 @@ gem 'bcrypt'
 gem 'faraday'
 gem 'fast_jsonapi'
 gem 'figaro'
+gem 'rails-i18n'
 gem 'vcr'
 gem 'webmock'
 

@@ -11,50 +11,79 @@ describe Forecast, type: :model do
 	end
 
 	describe "instance methods" do
-		xit "#current_weather" do
-			VCR.use_cassette('forecast_spec') do
-				expected = [@forecast.daily_high, @forecast.daily_low, @forecast.current_temp, @forecast.current_summary] 
-				expect(@forecast.current_weather).to eq(expected)
-			end
+		it "#current_weather" do
+			today = @forecast_hash[:daily][:data][0]
+			expected = { current: { high: @forecast.daily_high(today), low: @forecast.daily_low(today), temp: @forecast.current_temp, summary: @forecast.current_summary }}
+			expect(@forecast.current_weather).to eq(expected)
 		end
 
 
-		xit "daily_forecast" do
-			VCR.use_cassette('forecast_spec') do
-				day = @forecast_hash[:daily][:data][1]
-				expected = [@forecast.daily_high(day), @forecast.daily_low(day), @forecast.daily_time(day), @forecast.daily_precip_chance(day), @forecast.daily_summary(day)]
+		it "daily_forecast" do
+			day = @forecast_hash[:daily][:data][1]
+			expected = {daily: { high: @forecast.daily_high(day), low: @forecast.daily_low(day), time:  @forecast.daily_time(day), precip_chance: @forecast.daily_precip_chance(day), summary: @forecast.daily_summary(day)}}
 
-				expect(expected).to eq(@forecast.daily_forecast(day))
-			end
+			expect(expected).to eq(@forecast.daily_forecast(day))
 		end
 
-		xit 'today_details' do
-			VCR.use_cassette('forecast_spec') do
-				day = @forecast_hash[:daily][:data][0]
+		it 'today_details' do
+			day = @forecast_hash[:daily][:data][0]
  
-				expected = [@forecast.daily_summary(day), @forecast.feels_like, @forecast.current_humidity, @forecast.current_visibility, @forecast.current_uv]
-			end
+			expected = { daily_details: { summary: @forecast.daily_summary(day), feels_like: @forecast.feels_like, humidity: @forecast.current_humidity, visibility: @forecast.current_visibility, uv_index: @forecast.current_uv}}
+		
+			expect(expected).to eq(@forecast.today_details)
 		end
 
-		it "hourly_forecasts" do
+		xit "hourly_forecasts" do
+			expect(expected).to eq(@forecast.hourly_forecasts)
 		end
 
-#		xit "#daily_low" do
-#			expect(expected).to eq(actual)
-#		end
-#		
-#		xit "#daily_high" do
-#			expect(expected).to eq(actual)
-#		end
-#
-#		xit "#current_temp" do
-#		end
-#
-#		xit "#overview" do
-#		end
-#
-#		xit "#today" do
-#		end
+		it "#daily_low" do
+			day = @forecast_hash[:daily][:data][1]
+			expect(@forecast.daily_low(day)).to eq(67.02)
+		end
+		
+		it "#daily_high" do
+			day = @forecast_hash[:daily][:data][1]
+			expect(@forecast.daily_high(day)).to eq(92.75)
+		end
+
+		it "#current_temp" do
+			expect(@forecast.current_temp).to eq(92.06)
+		end
+
+		it "#current_summary" do
+			expect(@forecast.current_summary).to eq("Mostly Cloudy")
+		end
+
+		it "#daily_summary" do
+			day = @forecast_hash[:daily][:data][1]
+			expect(@forecast.daily_summary(day)).to eq("Partly cloudy throughout the day.")
+		end
+
+		it "#today" do
+			today = @forecast_hash[:daily][:data][0]
+			expect(@forecast.today).to eq(today)
+		end
+
+		it "#current_visibility" do
+			expect(@forecast.current_visibility).to eq(2.576)
+		end
+
+		it "#current_humidity" do
+			expect(@forecast.current_humidity).to eq(0.21)
+		end
+
+		it "#current_uv" do
+			expect(@forecast.current_uv).to eq(6)
+		end
+
+		it "#feels_like" do
+			expect(@forecast.feels_like).to eq(92.06)
+		end
+	
+		xit "#daily_time" do
+
+		end
 	end
 end
 
